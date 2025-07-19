@@ -4,6 +4,11 @@
     "module": "commonjs",
     "sourceMap": true,
     "outDir": "dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@modules/*": ["./src/modules/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@utils/*": ["./src/utils/*"]
+    },
   }
 }
