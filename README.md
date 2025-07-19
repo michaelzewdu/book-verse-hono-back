@@ -4,7 +4,7 @@ This is a simple API sample in Bun with hono based on [Google Cloud Run Quicksta
 
 ## Getting Started
 
-Server should run automatically when starting a workspace. To run manually, run:
+Server should run automatically when starting a workspace if on idx/firebase studio. To run manually, run:
 ```sh
 bun run --hot src/index.ts
 ```
