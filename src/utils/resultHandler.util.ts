@@ -8,7 +8,7 @@ import { StatusCode, SuccessStatusCode } from "hono/utils/http-status";
  * A utility function to handle the result of a function that returns a promise.
  * It wraps the function and handles the response.
  *
- * @param func - The function to be wrapped, which takes a Context and returns a Promise of TypedResponse.
+ * @param func - The function to be wrapped, which takes a Context and returns a Promise of IControllerResult.
  * @returns A wrapped function that can be used in Hono routes.
  */
 function resultHandler(
