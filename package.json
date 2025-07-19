@@ -1,5 +1,5 @@
 {
-  "name": "node-express-api-ts",
+  "name": "book-verse-bun-hono-api-ts",
   "description": "Simple api for books",
   "version": "1.0.0",
   "private": true,
@@ -10,9 +10,12 @@
   "author": "Michael Zewdu Shiferaw",
   "license": "Apache-2.0",
   "dependencies": {
-    "hono" : "^4.8.5"
+    "dotenv": "^17.2.0",
+    "hono": "^4.8.5",
+    "joi": "^17.13.3",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@types/bun" : "latest"
+    "@types/bun": "latest"
   }
 }
