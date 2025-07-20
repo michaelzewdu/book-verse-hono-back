@@ -8,7 +8,8 @@
     "paths": {
       "@modules/*": ["./src/modules/*"],
       "@routes/*": ["./src/routes/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@typesdef/*": ["./src/types/*"]
     },
   }
 }
