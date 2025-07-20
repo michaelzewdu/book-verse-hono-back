@@ -10,7 +10,7 @@ const booksQueryController = async (searchQuery) => {
             result,
             200
         );
-        
+
     } catch (error) {
         return newControllerError(
             error.message || "An error occurred while searching for books", 500
@@ -18,12 +18,15 @@ const booksQueryController = async (searchQuery) => {
     }
 }
 
-const createReviewController = async (review) => {
+const createReviewController = (review) => {
     // Logic for creating a book review can be added here
     try {
-        const result = await booksService.createReview(review);
+        const result = booksService.createReview(review);
         return newControllerData(
-            result,
+            {
+                result,
+                message: "Review created successfully"
+            },
             201
         );
     } catch (error) {
@@ -33,7 +36,7 @@ const createReviewController = async (review) => {
     }
 }
 
-const findBookReviewController = async (bookId: string) => {
+const findBookReviewController = (bookId: string) => {
 
     try {
         const result = booksService.findBookReview(bookId);
