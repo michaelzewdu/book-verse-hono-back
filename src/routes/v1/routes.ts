@@ -1,5 +1,5 @@
 import booksRouter from '@modules/books/router';
-import usersRouter from '@modules/users/router';
+import {usersRouter, authRouter} from '@modules/users/router';
 const routes = [
     {
         path: '/books',
@@ -8,6 +8,10 @@ const routes = [
     {
         path: '/users',
         route: usersRouter
+    },
+    {
+        path: '/auth',
+        route: authRouter
     }
 ]
 
