@@ -8,3 +8,7 @@ Server should run automatically when starting a workspace if on idx/firebase stu
 ```sh
 bun run --hot src/index.ts
 ```
+### Instructions
+- Endpoints `'/users/*'` and `'/books/reviews'` are auth protected. Make sure to authenticate before hitting them
+- Authentication method used is JWT
+- Make sure to provide a secret key. For environment variable details view example.env at root
