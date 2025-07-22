@@ -14,4 +14,4 @@ bun run --hot src/index.ts
 - Make sure to provide a secret key. For environment variable details view example.env at root
 
 #### Api documentation
-Api documentation is with sample response objects is available [here](https://origin-tech.postman.co/workspace/Team-Workspace~15605f21-4a0a-46b3-8a12-ec7041e5a959/collection/33548138-57381bdc-462c-4788-9ff5-6a83163410cf?action=share&source=copy-link&creator=33471938)
+Api documentation is with sample response objects is available [here](https://origin-tech.postman.co/workspace/Team-Workspace~15605f21-4a0a-46b3-8a12-ec7041e5a959/collection/33548138-57381bdc-462c-4788-9ff5-6a83163410cf?action=share&creator=33471938)
