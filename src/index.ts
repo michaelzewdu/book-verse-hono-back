@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import routes from '@routes/v1/routes';
+import { routes, authenticatedRoutes, authenticatedMethods } from '@routes/v1/routes';
 import envVars from '@config/config';
 import { graphqlServer } from '@hono/graphql-server';
 import graphSchema from '@modules/graphql/schema';
@@ -16,13 +16,10 @@ app.use('*', async (c, next) => {
   return next();
 });
 
-const authenticatedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
-
 // Middleware to handle authentication for specific methods
 // This middleware checks for the presence of a Bearer token in the Authorization header
 // user purchases is also auth protected because it is under the /users/:userId/purchases route
-app.on(authenticatedMethods, ['/users/*', '/books/reviews'], async (c, next) => isAuthenticated(c, next));
-
+app.on(authenticatedMethods, authenticatedRoutes, async (c, next) => isAuthenticated(c, next));
 
 app.use('/graphql', graphqlServer({
   schema: graphSchema,
@@ -36,10 +33,15 @@ app.get('/', (c) => {
   return c.text('Hello Hono World! Welcome to BookVerse API', 200);
 });
 
-
 for (const { path, route } of routes) {
   app.route(path, route);
 }
+
+app.onError((err, c) => {
+  logger.error(`Error occurred: ${err.message}`, { stack: err.stack });
+  // Return a JSON response with the error message and status code 500
+  return c.json({ error: err.message , message: "An unexpected error occurred"}, 500);
+});
 
 export default {
   port: envVars.port || 3000,
