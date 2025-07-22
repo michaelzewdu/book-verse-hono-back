@@ -10,11 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: oven-sh/setup-bun@v2
-      env:
-        JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        PORT: ${{ secrets.PORT }}
-        NODE_ENV: 'development'
-        
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          PORT: ${{ secrets.PORT }}
+          NODE_ENV: 'development'
+
       - name: Test
         run: |
           bun install --frozen-lockfile --production
