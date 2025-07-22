@@ -14,7 +14,7 @@
     "dotenv": "^17.2.0",
     "hono": "^4.8.5",
     "joi": "^17.13.3",
-    "jsonwebtoken": "^9.0.2",
+    "jose": "^6.0.12",
     "winston": "^3.17.0"
   },
   "devDependencies": {
