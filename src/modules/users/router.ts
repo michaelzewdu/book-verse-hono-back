@@ -33,7 +33,7 @@ authRouter.post('/login',
     handlerUtil.resultHandler(async (c) => {
         // Logic for user login added here
         const loginBody = await c.req.json();
-        return userController.userLoginController(loginBody);
+        return await userController.userLoginController(loginBody);
     })
 );
 
