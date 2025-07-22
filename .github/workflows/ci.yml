@@ -1,4 +1,3 @@
-
 on:
   pull_request:
   push:
@@ -16,6 +15,12 @@ jobs:
           # PORT: ${{ secrets.PORT }}
           PORT: 3000
           NODE_ENV: development
+
+      - name: Create .env file
+        run: |
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "PORT=3000" >> .env
+          echo "NODE_ENV=test" >> .env
 
       - name: Test
         run: |
