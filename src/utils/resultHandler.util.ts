@@ -1,8 +1,8 @@
-import type { Context, HonoRequest, TypedResponse } from "hono";
-import { IErrorResponse, instanceOfIErrorResponse } from "../types/errorResponse";
+import type { IControllerResult } from "@typesdef/controllerResult";
 import logger from "../config/logger";
-import { IControllerResult } from "../types/controllerResult";
-import { StatusCode, SuccessStatusCode } from "hono/utils/http-status";
+import type { StatusCode} from "hono/utils/http-status";
+import { type IErrorResponse, instanceOfIErrorResponse } from "../types/errorResponse";
+import type { Context} from "hono";
 
 /**
  * A utility function to handle the result of a function that returns a promise.
@@ -37,7 +37,7 @@ function successHandler<T>(c: Context, data: T | T[] | null, statusCode?: Status
     );
 }
 
-function errorHandler(c: Context, error: IErrorResponse | any): void {
+function errorHandler(c: Context, error: IErrorResponse | any) {
     let message: string;
     const genericError = "An unexpected error occurred";
     if (instanceOfIErrorResponse(error)) {
@@ -49,7 +49,7 @@ function errorHandler(c: Context, error: IErrorResponse | any): void {
     }
     const statusCode = error.statusCode || 500;
     c.status(statusCode)
-    c.json({
+    return c.json({
         data: null,
         error: {
             statusCode,
