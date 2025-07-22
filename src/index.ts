@@ -43,6 +43,8 @@ app.onError((err, c) => {
   return c.json({ error: err.message , message: "An unexpected error occurred"}, 500);
 });
 
+export {app};
+
 export default {
   port: envVars.port || 3000,
   fetch: app.fetch

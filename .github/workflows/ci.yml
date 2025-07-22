@@ -13,6 +13,9 @@ jobs:
       - name: Test
         run: |
           bun install --frozen-lockfile --production
+          bun test tests/index.test.ts
+      - name: Build
+        run: |
           bun build src/index.ts
 
       - name: Deploy
