@@ -12,10 +12,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         env:
           # JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_SECRET: '18c802c07f6bf586db02d536d7cf6516'
+          JWT_SECRET: 18c802c07f6bf586db02d536d7cf6516
           # PORT: ${{ secrets.PORT }}
-          PORT: '3000'
-          NODE_ENV: 'development'
+          PORT: 3000
+          NODE_ENV: development
 
       - name: Test
         run: |
