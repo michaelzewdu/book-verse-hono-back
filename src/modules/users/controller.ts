@@ -1,8 +1,9 @@
 import { newControllerData, newControllerError } from "@typesdef/controllerResult";
 import usersService from "./service";
-import { ILogin } from "./model";
-import jwt from 'jsonwebtoken';
-import envVars from '@config/config';
+import type { ILogin } from "./model";
+import * as jose from "jose";
+import envVars from "@config/config";
+import logger from "@config/logger";
 
 const getUserPurchaseHistoryController = async (userId) => {
     try {
@@ -14,14 +15,19 @@ const getUserPurchaseHistoryController = async (userId) => {
 }
 
 const userLoginController = async (loginBody: ILogin) => {
-    // Logic for user login can be added here
+    // Logic for user login added here
     try {
-        const token = jwt.sign({ username: loginBody.username }, envVars.jwtSecret, { expiresIn: '1h' });
+        const token = await new jose.SignJWT({ username: loginBody.username })
+            .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
+            .setExpirationTime('1h')
+            .sign(new TextEncoder().encode(envVars.jwtSecret));
         return newControllerData(
             { token, message: "Login successful" },
             200
         );
     } catch (error) {
+        logger.error(`Login error: ${error}`);
         return newControllerError(
             error.message || "An error occurred during login", 500
         );
