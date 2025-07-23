@@ -7,6 +7,7 @@ import rootResolver from '@modules/graphql/rootResolver';
 import { fire } from 'hono/service-worker'
 import logger from '@config/logger';
 import { isAuthenticated } from './middlewares/auth';
+import { HTTPException } from 'hono/http-exception';
 
 const app = new Hono();
 
@@ -38,6 +39,12 @@ for (const { path, route } of routes) {
 }
 
 app.onError((err, c) => {
+  console.error('Error occurred:', err);
+  if (err instanceof HTTPException) {
+    logger.error('JWT Signature Verification Failed', { error: err });
+    // Return a JSON response with the error message and status code 401
+    return c.json({ error: err.message, message: "Your token is invalid or expired. Please login again." }, 401);
+  }
   logger.error(`Error occurred: ${err.message}`, { stack: err.stack });
   // Return a JSON response with the error message and status code 500
   return c.json({ error: err.message , message: "An unexpected error occurred"}, 500);
