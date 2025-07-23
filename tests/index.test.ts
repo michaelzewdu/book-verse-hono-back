@@ -31,10 +31,11 @@ describe('Book Search API Tests', () => {
 
     it('Login test', async () => {
         const response = await app.request('/auth/login',
-             { method: 'POST',
-               body: JSON.stringify({ username: 'test1234', password: 'test1234' }), // this is a test credential, hide it in production
-               headers: { 'Content-Type': 'application/json' }
-             },);
+            {
+                method: 'POST',
+                body: JSON.stringify({ username: 'test1234', password: 'test1234' }), // this is a test credential, hide it in production
+                headers: { 'Content-Type': 'application/json' }
+            },);
         const data = await response.json();
         expect(response.status).toBe(200);
         expect(data.data.message).toBe('Login successful');
@@ -42,13 +43,8 @@ describe('Book Search API Tests', () => {
     });
 
     it('Add book review test', async () => {
-        const loginResponse = await app.request('/auth/login', {
-            method: 'POST',
-            body: JSON.stringify({ username: 'test1234', password: 'test1234' }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-        const loginData = await loginResponse.json();
-        const token = loginData.data.token;
+        // First, we need to get a valid token by logging in
+        const token = await getToken();
 
         const response = await app.request('/books/reviews', {
             method: 'POST',
@@ -63,10 +59,35 @@ describe('Book Search API Tests', () => {
                 'Authorization': `Bearer ${token}`
             }
         });
-
+        console.log(response.status);
         expect(response.status).toBe(201);
         const data = await response.json();
         expect(data.data.message).toBe('Review created successfully');
     })
 
+    it('User purchases historytest', async () => {
+        const token = await getToken();
+        const response = await app.request('/users/1/purchases', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+        expect(response.status).toBe(200);
+        expect(data.data).toBeInstanceOf(Array);
+    })
+
 });
+
+async function getToken() {
+    const loginResponse = await app.request('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ username: 'test1234', password: 'test1234' }), // this is a test credential, hide it in production
+        headers: { 'Content-Type': 'application/json' }
+    });
+    const loginData = await loginResponse.json();
+    const token = loginData.data.token;
+    return token;
+}
