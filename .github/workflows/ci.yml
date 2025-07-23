@@ -9,13 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: oven-sh/setup-bun@v2
-        env:
-          # JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_SECRET: 18c802c07f6bf586db02d536d7cf6516
-          # PORT: ${{ secrets.PORT }}
-          PORT: 3000
-          NODE_ENV: development
-
+        
       - name: Create .env file
         run: |
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
