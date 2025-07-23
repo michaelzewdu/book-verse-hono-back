@@ -41,4 +41,32 @@ describe('Book Search API Tests', () => {
         expect(data.data.token).toBeDefined();
     });
 
+    it('Add book review test', async () => {
+        const loginResponse = await app.request('/auth/login', {
+            method: 'POST',
+            body: JSON.stringify({ username: 'test1234', password: 'test1234' }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const loginData = await loginResponse.json();
+        const token = loginData.data.token;
+
+        const response = await app.request('/books/reviews', {
+            method: 'POST',
+            body: JSON.stringify({
+                bookId: '1',
+                userId: 'user123',
+                comment: 'Great book!',
+                rating: 4
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        expect(response.status).toBe(201);
+        const data = await response.json();
+        expect(data.data.message).toBe('Review created successfully');
+    })
+
 });
